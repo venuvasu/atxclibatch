@@ -1,0 +1,42 @@
+# Batch execution results and artifacts
+batch_results/
+batch_results_*/
+batch_repos/
+batch_repos_*/
+temp/
+docs/
+
+# Working CSV files (keep only sample)
+repos.csv
+repos_gradle.csv
+repos_gradle_copy.csv
+my-repos.csv
+
+# Build and execution logs
+*.log
+build.log
+
+# Generated files
+validation_summary.txt
+VALIDATION-SUMMARY.txt
+MIGRATION_SUMMARY.md
+
+# Main ATX CLI documentation (separate from batch launcher)
+README.md
+
+# Additional execution scripts (keep only sample)
+run-gradle-upgrade.sh
+sample-execution.sh
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.amazonq/
+
+# Files to keep in git:
+# - atx-batch-launcher.sh (main script)
+# - BATCH_LAUNCHER_README.md (readme)
+# - sample-repos.csv (sample CSV)
+# - run-doc-analysis.sh (sample execute script)
