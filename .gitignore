@@ -26,7 +26,7 @@ README.md
 
 # Additional execution scripts (keep only sample)
 run-gradle-upgrade.sh
-sample-execution.sh
+run-doc-analysis.sh
 
 # IDE and system files
 .vscode/
@@ -39,4 +39,4 @@ Thumbs.db
 # - atx-batch-launcher.sh (main script)
 # - BATCH_LAUNCHER_README.md (readme)
 # - sample-repos.csv (sample CSV)
-# - run-doc-analysis.sh (sample execute script)
+# - sample-execution.sh (sample execute script)
