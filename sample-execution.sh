@@ -4,5 +4,5 @@
   --csv-file "sample-repos.csv" \
   --mode "parallel" \
   --max-jobs 8 \
-  --output-dir "./batch_results_doc" \
-  --clone-dir "./batch_repos_doc"
+  --output-dir "./batch_results" \
+  --clone-dir "./batch_repos"
