@@ -22,7 +22,7 @@ VALIDATION-SUMMARY.txt
 MIGRATION_SUMMARY.md
 
 # Main ATX CLI documentation (separate from batch launcher)
-README.md
+# README.md
 
 # Additional execution scripts (keep only sample)
 run-gradle-upgrade.sh
@@ -37,6 +37,6 @@ Thumbs.db
 
 # Files to keep in git:
 # - atx-batch-launcher.sh (main script)
-# - BATCH_LAUNCHER_README.md (readme)
+# - README.md (readme)
 # - sample-repos.csv (sample CSV)
 # - sample-execution.sh (sample execute script)
