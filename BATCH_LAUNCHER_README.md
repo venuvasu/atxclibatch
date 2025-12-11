@@ -12,11 +12,13 @@ Follow the installation instructions in the [official ATX CLI documentation](htt
 curl -fsSL https://desktop-release.transform.us-east-1.api.aws/install.sh | bash
 ```
 
-### 2. Create Your Repository List
-Copy and modify the sample CSV file:
+### 2. Configure Your Repository List
+Edit the sample CSV file with your repositories and transformations:
 ```bash
-cp sample-repos.csv my-repos.csv
-# Edit my-repos.csv with your repositories and transformations
+# Edit sample-repos.csv with your repositories
+nano sample-repos.csv
+# or
+vim sample-repos.csv
 ```
 
 ### 3. Configure Authentication for Private Repositories (Optional)
@@ -67,16 +69,19 @@ git@github.com:user/private-repo.git
 
 ### 4. Run the Batch Launcher
 ```bash
-# Basic execution (trust-all-tools enabled by default)
-./atx-batch-launcher.sh --csv-file my-repos.csv
+# Basic execution using sample files
+./sample-execution.sh
 
-# Parallel execution with custom directories
+# Or run directly
+./atx-batch-launcher.sh --csv-file sample-repos.csv
+
+# Parallel execution with custom settings
 ./atx-batch-launcher.sh \
-  --csv-file "repos_gradle.csv" \
+  --csv-file "sample-repos.csv" \
   --mode "parallel" \
   --max-jobs 10 \
-  --output-dir "./batch_results_gradle" \
-  --clone-dir "./batch_repos_gradle"
+  --output-dir "./batch_results" \
+  --clone-dir "./batch_repos"
 ```
 
 That's it! Check `batch_results/summary.log` for execution results.
@@ -117,7 +122,7 @@ cp sample-execution.sh my-java-upgrades.sh
 cat > my-custom-execution.sh << 'EOF'
 #!/bin/bash
 ./atx-batch-launcher.sh \
-  --csv-file "my-repos.csv" \
+  --csv-file "sample-repos.csv" \
   --mode "serial" \
   --max-jobs 4 \
   --build-command "mvn clean install" \
