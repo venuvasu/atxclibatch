@@ -19,7 +19,53 @@ cp sample-repos.csv my-repos.csv
 # Edit my-repos.csv with your repositories and transformations
 ```
 
-### 3. Run the Batch Launcher
+### 3. Configure Authentication for Private Repositories (Optional)
+
+For private GitHub repositories, you have two options:
+
+#### Option 1: SSH Keys (Recommended - Easier)
+
+**Advantages:**
+- ✅ Set up once, works forever
+- ✅ No tokens to manage/expire  
+- ✅ More secure (no credentials in files)
+- ✅ No prompts during git clone operations
+- ✅ No script modifications needed
+
+**Setup:**
+```bash
+# 1. Generate SSH key WITHOUT passphrase (press Enter when prompted)
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# 2. Add to ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# 3. Copy public key to GitHub
+cat ~/.ssh/id_ed25519.pub
+# Go to GitHub → Settings → SSH and GPG keys → New SSH key
+# Paste the public key content
+
+# 4. Test SSH connection
+ssh -T git@github.com
+# Should show: "Hi username! You've successfully authenticated..."
+```
+
+**Usage:** Use SSH URLs in your CSV file:
+```csv
+git@github.com:user/private-repo.git
+```
+
+#### Option 2: Personal Access Token (More Complex)
+
+**Setup:**
+1. Go to GitHub → Settings → Developer settings → Personal access tokens
+2. Generate new token with `repo` permissions
+3. Configure git credentials or use HTTPS URLs with embedded tokens
+
+**Note:** SSH is recommended as it's simpler and more secure.
+
+### 4. Run the Batch Launcher
 ```bash
 # Basic execution (trust-all-tools enabled by default)
 ./atx-batch-launcher.sh --csv-file my-repos.csv
@@ -34,6 +80,78 @@ cp sample-repos.csv my-repos.csv
 ```
 
 That's it! Check `batch_results/summary.log` for execution results.
+
+## Sample Files
+
+### sample-execution.sh
+
+This script demonstrates common usage patterns and serves as a template for your own execution scripts:
+
+```bash
+#!/bin/bash
+
+./atx-batch-launcher.sh \
+  --csv-file "sample-repos.csv" \
+  --mode "parallel" \
+  --max-jobs 8 \
+  --output-dir "./batch_results" \
+  --clone-dir "./batch_repos"
+```
+
+**Key Features Demonstrated:**
+- **Parallel execution** with 8 concurrent jobs
+- **Sample CSV file** with realistic repository examples
+- **Standard output directories** for results and cloned repos
+
+**Usage Examples:**
+```bash
+# Run the sample script directly
+./sample-execution.sh
+
+# Copy and customize for your needs
+cp sample-execution.sh my-java-upgrades.sh
+# Edit my-java-upgrades.sh with your parameters
+./my-java-upgrades.sh
+
+# Create custom execution scripts
+cat > my-custom-execution.sh << 'EOF'
+#!/bin/bash
+./atx-batch-launcher.sh \
+  --csv-file "my-repos.csv" \
+  --mode "serial" \
+  --max-jobs 4 \
+  --build-command "mvn clean install" \
+  --output-dir "./results-$(date +%Y%m%d)"
+EOF
+chmod +x my-custom-execution.sh
+```
+
+**Customization Options:**
+- Change `--csv-file` to your repository list
+- Adjust `--max-jobs` based on system resources
+- Modify `--mode` (serial/parallel) for your workflow
+- Set custom `--output-dir` and `--clone-dir` paths
+- Add `--build-command` for default build instructions
+
+### sample-repos.csv
+
+This file demonstrates the CSV format with realistic examples:
+
+```csv
+repo_path,build_command,transformation_name,validation_commands,additional_plan_context
+https://github.com/spring-projects/spring-petclinic.git,./mvnw clean test,java-version-upgrade,"Use JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64/bin/java and run all tests","Java 8 to 21 transformation with Spring Boot 3.4.5 and dependency migrations"
+https://github.com/eugenp/tutorials.git,./gradlew clean build test,aws-sdk-migration,"Build with Java 21 and validate AWS SDK v2 usage","Migrate from AWS SDK v1 to v2 with proper error handling"
+./local-spring-app,mvn clean install,spring-boot-upgrade,"Run integration tests with TestContainers","Spring Boot 2.7 to 3.4 migration with security updates"
+https://github.com/Netflix/eureka.git,./gradlew build,modernization-package,"Use Java 21 and run all unit tests","Modernize to latest Spring Cloud and remove deprecated APIs"
+```
+
+**Repository Types Demonstrated:**
+- **Public GitHub repos** (Spring PetClinic, Baeldung Tutorials, Netflix Eureka)
+- **Local repositories** (./local-spring-app)
+- **Different build systems** (Maven, Gradle)
+- **Various transformations** (Java upgrades, AWS SDK migration, Spring Boot upgrades)
+
+**For Private Repositories:** Use SSH URLs like `git@github.com:user/private-repo.git` after setting up SSH keys.
 
 ## Features
 
