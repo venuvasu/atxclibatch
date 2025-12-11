@@ -1,5 +1,5 @@
 repo_path,build_command,transformation_name,validation_commands,additional_plan_context
-https://github.com/spring-projects/spring-petclinic.git,./mvnw clean test,java-version-upgrade,"Use JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64/bin/java and run all tests","Java 8 to 21 transformation with Spring Boot 3.4.5 and dependency migrations"
-https://github.com/eugenp/tutorials.git,./gradlew clean build test,aws-sdk-migration,"Build with Java 21 and validate AWS SDK v2 usage","Migrate from AWS SDK v1 to v2 with proper error handling"
-./local-spring-app,mvn clean install,spring-boot-upgrade,"Run integration tests with TestContainers","Spring Boot 2.7 to 3.4 migration with security updates"
-https://github.com/Netflix/eureka.git,./gradlew build,modernization-package,"Use Java 21 and run all unit tests","Modernize to latest Spring Cloud and remove deprecated APIs"
+https://github.com/spring-projects/spring-petclinic.git,./mvnw clean test,AWS/java-version-upgrade,"Use JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64/bin/java and run all tests","Java 8 to 21 transformation with Spring Boot 3.4.5 and dependency migrations"
+https://github.com/eugenp/tutorials.git,./gradlew clean build test,AWS/java-aws-sdk-v1-to-v2,"Build with Java 21 and validate AWS SDK v2 usage","Migrate from AWS SDK v1 to v2 with proper error handling"
+./local-spring-app,mvn clean install,AWS/java-version-upgrade,"Run integration tests with TestContainers","Spring Boot 2.7 to 3.4 migration with security updates"
+https://github.com/Netflix/eureka.git,./gradlew build,AWS/early-access-comprehensive-codebase-analysis,"Use Java 21 and run all unit tests","Modernize to latest Spring Cloud and remove deprecated APIs"
